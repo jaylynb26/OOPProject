@@ -10,7 +10,9 @@ public class Story {
 	private boolean share;
 	ArrayList<String> content = new ArrayList<String>(); 
 	
-	Story(){}
+	Story(){
+		
+	}
 	
 	Story(ArrayList<String> text){
 		this.content = text;
@@ -48,9 +50,13 @@ public class Story {
 		try {
 		      File file = new File(fileName);
 		      Scanner scan = new Scanner(file);
-		      while (scan.hasNextLine()) {
-		        String data = scan.nextLine();
-		        
+		      while (scan.hasNext()) {
+		        String data = scan.next();
+		        if(data.equals("[]") || data.equals("[ ]")) {
+		        	newContent.add("_______");
+		        }
+		        else {
+		        	newContent.add(data);}
 		        
 		      }
 		      scan.close();
@@ -64,6 +70,9 @@ public class Story {
 
 
 	public void printStory() {
-	
+		
+		for(int i = 0; i < this.content.size(); i++) {
+			System.out.println(" " + this.content.get(i) + " ");
+		}
 	}
 }
