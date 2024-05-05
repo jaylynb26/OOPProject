@@ -1,87 +1,59 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+package mainPackage;
 
+import java.util.ArrayList;
 
 public class Story {
-	
-	private int userID;
-	private boolean share;
-	ArrayList<String> content = new ArrayList<String>(); 
-	protected int index;
-	
-	Story(){
-		
-	}
-	
-	Story(ArrayList<String> text){
-		this.content = text;
-	}
+    private String title;
+    private String genre;
+    private ArrayList<String> content;
+    private boolean isTemplate;
 
-	public int getUserID() {
-		return userID;
-	}
+    public Story(String title, String genre, ArrayList<String> content) {
+        this.title = title;
+        this.genre = genre;
+        this.content = content;
+        this.isTemplate = false;
+    }
 
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+    // getters
+    public String getTitle() {
+        return title;
+    }
 
-	public boolean isShare() {
-		return share;
-	}
+    public String getGenre() {
+        return genre;
+    }
 
-	public void setShare(boolean shared) {
-		this.share = shared;
-	}
-	
-	public int getIndex() {
-		return index;
-	}
-	
-	public void setIndex(int index){
-		 this.index = index;
-	}
+    public ArrayList<String> getContent() {
+        return content;
+    }
 
-	public ArrayList<String> getContent() {
-		return content;
-	}
+    // check template
+    public boolean isTemplate() {
+        return isTemplate;
+    }
 
-	public void setContent(ArrayList<String> content) {
-		this.content = content;
-	}
-	
-	
-	
-	public void createNew(String fileName) {
-		
-		ArrayList<String> newContent = new ArrayList<String>();
-		try {
-		      File file = new File(fileName);
-		      Scanner scan = new Scanner(file);
-		      while (scan.hasNext()) {
-		        String data = scan.next();
-		        if(data.equals("[]") || data.equals("[ ]")) {
-		        	newContent.add("_______");
-		        }
-		        else {
-		        	newContent.add(data);}
-		        
-		      }
-		      scan.close();
-		    } catch (FileNotFoundException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
-		
-		this.setContent(newContent);}
-	
+    // setters
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
-	public void printStory() {
-		
-		for(int i = 0; i < this.content.size(); i++) {
-			System.out.println(" " + this.content.get(i) + " ");
-		}
-	}
+    public void setContent(ArrayList<String> content) {
+        this.content = content;
+    }
+
+    public void setTemplate(boolean isTemplate) {
+        this.isTemplate = isTemplate;
+    }
+
+    // print story method
+    public void printStory() {
+        for (String line : content) {
+            System.out.println(line);
+        }
+    }
 }
