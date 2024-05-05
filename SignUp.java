@@ -56,6 +56,9 @@ public class SignUp extends JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a username and password.", "Sign Up Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // add new user to credentials manager
+        AuthenticationManager.addUser(username, password);
 
         // display success message
         JOptionPane.showMessageDialog(this, "User account created successfully!", "Sign Up Success", JOptionPane.INFORMATION_MESSAGE);

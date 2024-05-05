@@ -7,7 +7,13 @@ import java.awt.event.ActionListener;
 
 public class NormalUserGUI extends JFrame {
 
-    public NormalUserGUI(String username) {
+	private NormalUser user;
+	private Library library;
+
+    public NormalUserGUI(NormalUser user, Library library) {
+        this.user = user;
+        this.library = library;
+
         setTitle("Normal User Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
@@ -16,7 +22,7 @@ public class NormalUserGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 1));
 
-        JLabel titleLabel = new JLabel("Welcome " + username + "!");
+        JLabel titleLabel = new JLabel("Welcome " + user.getUsername() + "!");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titleLabel);
 
@@ -24,8 +30,7 @@ public class NormalUserGUI extends JFrame {
         writeStoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // action to write a story
-                JOptionPane.showMessageDialog(NormalUserGUI.this, "Write a Story clicked!");
+                user.writeStory(library);
             }
         });
         panel.add(writeStoryButton);
@@ -34,14 +39,27 @@ public class NormalUserGUI extends JFrame {
         viewSavedStoriesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // action to view saved stories
-                JOptionPane.showMessageDialog(NormalUserGUI.this, "View Saved Stories clicked!");
-            }
+            	user.viewSavedStories();            }
         });
         panel.add(viewSavedStoriesButton);
+        
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                logout();
+            }
+        });
+        panel.add(logoutButton);
 
         getContentPane().add(panel);
 
-        setVisible(false); // starts invisible, shown when normal user logs in
+        setVisible(false); 
+    }
+    
+    
+    private void logout() {
+        dispose(); 
+        new MainGUI();
     }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainGUI extends JFrame {
 
@@ -41,7 +42,7 @@ public class MainGUI extends JFrame {
                 // authentication
                 if (authenticate(username, password)) {
                     dispose(); // close login window
-                    showMainMenu(username); // show main menu with username
+                    showMainMenu(username, password); // show main menu with username
                 } else {
                     JOptionPane.showMessageDialog(MainGUI.this, "Invalid username or password!", "Login Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -65,9 +66,23 @@ public class MainGUI extends JFrame {
     }
 
     private boolean authenticate(String username, String password) {
-        // replace with authentication logic
-        // check if username and password are not empty
-        return !username.isEmpty() && !password.isEmpty();
+    	String adminUsername = "admin";
+        String adminPassword = "admin";
+
+        // admin credentials?
+        if (username.equals(adminUsername) && password.equals(adminPassword)) {
+            return true; // Authentication successful for admin
+        } else {
+            // normal user credentials?
+            ArrayList<UserCredentials> normalUsers = AuthenticationManager.getNormalUsers();
+            for (UserCredentials user : normalUsers) {
+                if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+                    return true; // authentication successful
+                }
+            }
+        }
+
+        return false;
     }
     
     private void showSignUpForm() {
@@ -76,17 +91,25 @@ public class MainGUI extends JFrame {
         signUpForm.setVisible(true);
     }
 
-    private void showMainMenu(String username) {
-    	boolean isAdmin = username.equals("admin");
+    private void showMainMenu(String username, String password) {
+        boolean isAdmin = username.equals("admin");
 
         if (isAdmin) {
-            AdminGUI adminGUI = new AdminGUI(username);
+            // new Admin object
+            Library library = new Library();
+            Admin admin = new Admin(username, password, library);
+            AdminGUI adminGUI = new AdminGUI(admin);
             adminGUI.setVisible(true);
         } else {
-            NormalUserGUI normalUserGUI = new NormalUserGUI(username);
+            // new NormalUser object
+            NormalUser normalUser = new NormalUser(username, password);
+            Library library = new Library();
+            NormalUserGUI normalUserGUI = new NormalUserGUI(normalUser, library);
             normalUserGUI.setVisible(true);
         }
     }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
