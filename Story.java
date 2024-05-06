@@ -1,14 +1,15 @@
 package mainPackage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Story {
     private String title;
     private String genre;
-    private ArrayList<String> content;
+    private List<String> content;
     private boolean isTemplate;
 
-    public Story(String title, String genre, ArrayList<String> content) {
+    public Story(String title, String genre, List<String> content) {
         this.title = title;
         this.genre = genre;
         this.content = content;
@@ -24,7 +25,7 @@ public class Story {
         return genre;
     }
 
-    public ArrayList<String> getContent() {
+    public List<String> getContent() {
         return content;
     }
 
@@ -42,7 +43,7 @@ public class Story {
         this.genre = genre;
     }
 
-    public void setContent(ArrayList<String> content) {
+    public void setContent(List<String> content) {
         this.content = content;
     }
 
@@ -52,8 +53,10 @@ public class Story {
 
     // print story method
     public void printStory() {
-        for (String line : content) {
-            System.out.println(line);
-        }
+        System.out.println("Title: " + title);
+        System.out.println("Genre: " + genre);
+        System.out.println("Content:");
+        System.out.println(content);
     }
+    
 }

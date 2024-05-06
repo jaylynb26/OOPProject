@@ -28,7 +28,7 @@ public class AdminGUI extends JFrame {
         viewLibraryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewLibrary();
+                admin.viewLibrary();
             }
         });
         panel.add(viewLibraryButton);
@@ -37,10 +37,28 @@ public class AdminGUI extends JFrame {
         editStoriesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editStories();
+                admin.editStories();
             }
         });
         panel.add(editStoriesButton);
+        
+        JButton deleteStoriesButton = new JButton("Delete a Story");
+        deleteStoriesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                admin.deleteStories();
+            }
+        });
+        panel.add(deleteStoriesButton);
+        
+        JButton createTemplateButton = new JButton("Create Template");
+        createTemplateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                admin.createTemplate();
+            }
+        });
+        panel.add(createTemplateButton);
         
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(new ActionListener() {
@@ -54,16 +72,6 @@ public class AdminGUI extends JFrame {
         getContentPane().add(panel);
 
         setVisible(false); 
-    }
-
-    private void viewLibrary() {
-        
-        JOptionPane.showMessageDialog(this, "View Library clicked!");
-    }
-
-    private void editStories() {
-        
-        JOptionPane.showMessageDialog(this, "Edit Stories clicked!");
     }
     
     private void logout() {

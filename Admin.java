@@ -88,7 +88,7 @@ public class Admin {
     }
 
 
-    public void createTemplates() {
+    public void createTemplate() {
         // create templates (choose genre, write story template, etc.)
         JOptionPane.showMessageDialog(null, "Creating templates...");
     }

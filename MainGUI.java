@@ -10,9 +10,11 @@ public class MainGUI extends JFrame {
 
     private JTextField usernameField;
     private JPasswordField passwordField;
+    private Library library;
 
     public MainGUI() {
-        setTitle("Login");
+    	this.library = new Library();        
+    	setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
         setLocationRelativeTo(null);
@@ -42,7 +44,7 @@ public class MainGUI extends JFrame {
                 // authentication
                 if (authenticate(username, password)) {
                     dispose(); // close login window
-                    showMainMenu(username, password); // show main menu with username
+                    showMainMenu(username, password); 
                 } else {
                     JOptionPane.showMessageDialog(MainGUI.this, "Invalid username or password!", "Login Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -95,15 +97,13 @@ public class MainGUI extends JFrame {
         boolean isAdmin = username.equals("admin");
 
         if (isAdmin) {
-            // new Admin object
-            Library library = new Library();
+            // Admin object
             Admin admin = new Admin(username, password, library);
             AdminGUI adminGUI = new AdminGUI(admin);
             adminGUI.setVisible(true);
         } else {
-            // new NormalUser object
+            // NormalUser object
             NormalUser normalUser = new NormalUser(username, password);
-            Library library = new Library();
             NormalUserGUI normalUserGUI = new NormalUserGUI(normalUser, library);
             normalUserGUI.setVisible(true);
         }
